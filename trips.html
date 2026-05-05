@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Travel Book – Trips</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #b8d8d8;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: url(sky.png);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 52px;
+            height: 56px;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 40px; }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        nav { display: flex; gap: 32px; align-items: center; }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color .3s ease;
+        }
+
+        nav a.active {
+            color: #ffffff;
+            background: #0d2a4a;
+            padding: 6px 16px;
+            border-radius: 50px;
+        }
+
+        .nav-right { display: flex; gap: 28px; align-items: center; }
+
+        .nav-right a {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-right .logout-link {
+            color: #0d2a4a;
+            background: #ffffff;
+            padding: 7px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 40px 30px;
+        }
+
+        .trips-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            width: 100%;
+            max-width: 1300px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(13,42,74,.25);
+            height: 700px;
+        }
+
+        .trip-panel {
+            position: relative;
+            height: 700px;
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 24px;
+        }
+
+        .trip-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform .6s cubic-bezier(.22,1,.36,1);
+        }
+
+        .trip-panel:hover .trip-bg { transform: scale(1.06); }
+
+        .poster {
+            position: relative;
+            z-index: 2;
+            margin: 32px auto 0;
+            width: 80%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,.3);
+            transition: transform .6s cubic-bezier(.22,1,.36,1);
+            height: 450px;
+        }
+
+        .trip-panel:hover .poster { 
+            transform: translateY(-6px) scale(1.03); 
+            box-shadow: 0 16px 40px rgba(0,0,0,.4);
+        }
+
+        .poster img { width: 100%; height: 450px; object-fit: cover; display: block; }
+
+        .ticket-btn {
+            position: relative;
+            z-index: 2;
+            display: block;
+            margin: 14px auto 0;
+            padding: 8px 28px;
+            background: #0d2a4a;
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(13,42,74,.35);
+            transition: background .25s, transform .25s, box-shadow .25s;
+        }
+
+        .ticket-btn:hover {
+            background: #194d80;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(13,42,74,.45);
+        }
+
+        .availability {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: rgba(255,255,255,.9);
+            letter-spacing: 0.5px;
+            padding: 6px 10px 0;
+            text-shadow: 0 1px 4px rgba(0,0,0,.4);
+        }
+
+        .bottom-label {
+            position: relative;
+            z-index: 2;
+            padding-top: 8px;
+            text-align: center;
+        }
+
+        .bottom-label .name { font-size: 15px; font-weight: 800; color: #ffffff; letter-spacing: 3px; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
+        .bottom-label .underline { width: 40%; height: 1.5px; background: rgba(255,255,255,.6); margin: 6px auto 0; transition: width .4s ease; }
+
+        .trip-panel:hover .bottom-label .underline { width: 70%; }
+
+        footer { text-align: center; padding: 18px; font-size: 14px; font-weight: 700; color: #2a6080; }
+
+    </style>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="nav-left">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#">Profile</a>
+            <a href="trips.html" class="active">Trips</a>
+        </nav>
+        <a href="home.html" class="logo">My Travel Book</a>
+    </div>
+    <div class="nav-right">
+        <a href="#" class="logout-link" onclick="logout()">Logout</a>
+        <a href="#" style="color: #fff;">FAQ</a>
+    </div>
+</header>
+
+<main class="main-container">
+    <div class="trips-grid">
+
+        <div class="trip-panel">
+            <div class="trip-bg" style="background-image: url('japan blue.jpg');"></div>
+            <div class="poster">
+                <img src="greece.jpg" alt="Santorini">
+            </div>
+            <button class="ticket-btn" onclick="openModal('santorini')">Get Tickets</button>
+            <div class="availability" id="avail-santorini"></div>
+            <div class="bottom-label">
+                <div class="name">SANTORINI</div>
+                <div class="underline"></div>
+            </div>
+        </div>
+
+        <div class="trip-panel">
+            <div class="trip-bg" style="background-image: url('plains.jpg');"></div>
+            <div class="poster">
+                <img src="cape cod.jpg" alt="Cape Cod">
+            </div>
+            <button class="ticket-btn" onclick="openModal('capecod')">Get Tickets</button>
+            <div class="availability" id="avail-capecod"></div>
+            <div class="bottom-label">
+                <div class="name">CAPE COD</div>
+                <div class="underline"></div>
+            </div>
+        </div>
+
+        <div class="trip-panel">
+            <div class="trip-bg" style="background-image: url('ocean blue.webp');"></div>
+            <div class="poster">
+                <img src="lake como.jpg" alt="Lake Como">
+            </div>
+            <button class="ticket-btn" onclick="openModal('lakecomo')">Get Tickets</button>
+            <div class="availability" id="avail-lakecomo"></div>
+            <div class="bottom-label">
+                <div class="name">LAKE COMO</div>
+                <div class="underline"></div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer>4Q ICT9 PROJECT | Lee, Herrington, Manuntag |</footer>
+
+<script>
+    if (sessionStorage.getItem('loggedIn') !== 'true') {
+        window.location.href = 'login.html';
+    }
+
+    function logout() {
+        sessionStorage.removeItem('loggedIn');
+        window.location.href = 'login.html';
+    }
+
+    const destinations = {
+        santorini: {
+            title: 'SANTORINI',
+            country: 'GREECE',
+            hours: '12:00 AM - 7:00 AM (PST)',
+            open: 0,
+            close: 7
+        },
+        capecod: {
+            title: 'CAPE COD',
+            country: 'MASSACHUSETTS, USA',
+            hours: 'ANYTIME',
+            open: 0,
+            close: 24
+        },
+        lakecomo: {
+            title: 'LAKE COMO',
+            country: 'ITALY',
+            hours: '3:00 PM - 5:00 PM (PST)',
+            open: 15,
+            close: 17
+        }
+    };
+
+    function getPSTHour() {
+        const date = new Date();
+        const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+        const pstDate = new Date(utc + (3600000 * 8));
+        return pstDate.getHours();
+    }
+
+    function getPSTTimeString() {
+        const date = new Date();
+        const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+        const pstDate = new Date(utc + (3600000 * 8));
+        return pstDate.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        });
+    }
+
+    function openModal(key) {
+        const dest = destinations[key];
+        const hour = getPSTHour();
+        const isOpen = hour >= dest.open && hour < dest.close;
+
+        if (isOpen) {
+            alert(dest.title + ' — ' + dest.country + '\n\nStatus: Sucessfuly booked!');
+        } else {
+            alert(dest.title + ' — ' + dest.country + '\n\nStatus: Not Available (Closed)');
+        }
+    }
+
+    function updateAvailability() {
+        Object.keys(destinations).forEach(key => {
+            const dest = destinations[key];
+            const el = document.getElementById('avail-' + key);
+            if (el) {
+                el.textContent = dest.hours === 'ANYTIME'
+                    ? '(AVAILABLE: ANYTIME)'
+                    : '(AVAILABLE: ' + dest.hours + ')';
+            }
+        });
+    }
+
+    updateAvailability();
+</script>
+
+</body>
+</html>

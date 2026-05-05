@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Travel Book – Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #b8d8d8;
+            background-image: url('sky.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 52px;
+            height: 56px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: opacity .3s ease;
+        }
+
+        .logo:hover { opacity: 0.8; }
+
+        nav { display: flex; gap: 32px; align-items: center; }
+
+        nav a {
+            font-family: 'Outfit', sans-serif;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color .3s ease, background .3s ease, padding .3s ease;
+        }
+
+        nav a:hover { color: #d0e8f0; }
+
+        nav a.active {
+            color: #ffffff;
+            background: #0d2a4a;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-right a {
+            font-family: 'Outfit', sans-serif;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: opacity .3s ease, transform .3s ease;
+        }
+
+        .nav-right a:hover { opacity: 0.85; transform: translateY(-1px); }
+
+        .nav-right .logout-link {
+            color: #0d2a4a;
+            background: #ffffff;
+            padding: 7px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .nav-right .faq-link { color: #ffffff; }
+
+    
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeSlideUp .8s cubic-bezier(.22,1,.36,1) both;
+ 
+        }
+
+        .card {
+            width: 100%;
+            max-width: 1250px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 16px 48px rgba(13,42,74,.22);
+            display: flex;
+            flex-direction: column;
+            transition: transform .6s cubic-bezier(.22,1,.36,1),
+                        box-shadow .6s cubic-bezier(.22,1,.36,1);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 32px 80px rgba(13,42,74,.38);
+        }
+
+        .hero {
+            width: 100%;
+            height: 700px;
+            background-image: url('clouds.jpg');
+            background-size: 100%;
+            background-position: center top;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            transition: background-size .6s cubic-bezier(.22,1,.36,1);
+        }
+
+        .card:hover .hero {
+            background-size: 112%;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 30px;
+            font-weight: 600;
+            color: #1a3a5c;
+            letter-spacing: 10px;
+            text-align: center;
+            padding-bottom: 8px;
+            border-bottom: 1.5px solid #1a3a5c;
+            transition: font-size .6s cubic-bezier(.22,1,.36,1),
+                        letter-spacing .6s cubic-bezier(.22,1,.36,1),
+                        color .4s ease;
+        }
+
+        .card:hover .hero h1 {
+            font-size: 38px;
+            letter-spacing: 16px;
+            color: #0d2a4a;
+        }
+
+        .travel-btn {
+            background: #0d2a4a;
+            color: #ffffff;
+            border: none;
+            padding: 11px 34px;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .3s ease,
+                        box-shadow .3s ease,
+                        transform .3s cubic-bezier(.22,1,.36,1),
+                        padding .3s ease;
+            box-shadow: 0 4px 14px rgba(13,42,74,.3);
+        }
+
+        .travel-btn:hover {
+            background: #194d80;
+            box-shadow: 0 8px 24px rgba(13,42,74,.45);
+            transform: translateY(-2px) scale(1.05);
+            padding: 13px 40px;
+        }
+
+        .travel-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        footer {
+            text-align: center;
+            padding: 22px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #2a6080;
+            animation: fadeIn 1.2s ease both;
+        }
+    </style>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="nav-left">
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="#">Profile</a>
+            <a href="trips.html">Trips</a>
+        </nav>
+        <a href="home.html" class="logo">My Travel Book</a>
+    </div>
+    <div class="nav-right">
+        <a href="#" class="logout-link" onclick="logout()">Logout</a>
+        <a href="#" class="faq-link">FAQ</a>
+    </div>
+</header>
+
+<main class="main-container">
+    <div class="card">
+        <div class="hero">
+            <h1>WELCOME</h1>
+            <button class="travel-btn" onclick="window.location.href='trips.html'">Travel Now</button>
+        </div>
+    </div>
+</main>
+
+<footer>4Q ICT9 PROJECT | Lee, Herrington, Manuntag |</footer>
+
+<script>
+    if (sessionStorage.getItem('loggedIn') !== 'true') {
+        window.location.href = 'login.html';
+    }
+
+    function logout() {
+        sessionStorage.removeItem('loggedIn');
+        window.location.href = 'login.html';
+    }
+</script>
+
+</body>
+</html>
